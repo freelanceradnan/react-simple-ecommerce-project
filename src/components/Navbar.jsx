@@ -15,12 +15,12 @@ const Navbar = () => {
           Shop
         </NavLink>
         <NavLink
-          to="/login"
+          to="/cart"
           className={({ isActive}) =>
             isActive ? "text-red-500 border-b-2 border-blue-400" : ""
           }
         >
-          Login
+          Cart
         </NavLink>
       </ul>
     </nav>

@@ -1,6 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../features/CartSlice';
 
 const ProductCard = ({ product }) => {
+    const dispatch=useDispatch()
   return (
     <div className="max-w-80 rounded-lg overflow-hidden shadow-lg bg-white transform transition duration-500 hover:scale-105">
       
@@ -23,7 +26,7 @@ const ProductCard = ({ product }) => {
           <span className="text-2xl font-bold text-gray-900">${product.price.toFixed(2)}</span>
           
         </div>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">
+        <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300" onClick={()=>dispatch(addToCart(product))}>
           Add to Cart
         </button>
       </div>
