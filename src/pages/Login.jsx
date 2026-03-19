@@ -2,7 +2,7 @@ import { LogIn, User } from 'lucide-react';
 import { useState } from 'react';
 import {auth} from '../firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const Login = () => {
     const navigate=useNavigate()
@@ -59,6 +59,9 @@ const Login = () => {
             {errorMessage && <h2 className='text-center font-semibold text-red-600'>{errorMessage}</h2>}
         </div>
         </form>
+        <div>
+            <h2 className=''>Don't Have any Account? <Link to="/signup" className='font-semibold underline'>Login now</Link></h2>
+        </div>
         </div>
         </div>
         </div>

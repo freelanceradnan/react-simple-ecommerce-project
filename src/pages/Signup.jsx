@@ -1,32 +1,43 @@
-import { LogIn } from 'lucide-react';
+import {  LogIn } from 'lucide-react';
 import { useState } from 'react';
-import {auth} from  '../firebase'
+import {auth, db} from  '../firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
+import { doc, setDoc } from 'firebase/firestore';
+
 const Signup = () => {
-    const initUser={
-        email:"",
-        password:""
-    }
-    const navigate=useNavigate()
-    const [user,setUser]=useState(initUser)
-    const [loading,SetLoading]=useState(false)
-    const [errorMessage,setErrorMessage]=useState("")
+    const initUser = {
+        email: "",
+        password: "",
+        role: "user" 
+    };
+    const navigate = useNavigate();
+    const [user, setUser] = useState(initUser);
+    const [loading, setLoading] = useState(false); 
+    const [errorMessage, setErrorMessage] = useState("")
     const changehandler=(e)=>{
     setUser({...user,[e.target.name]:e.target.value})
     }
     const submitHandler=async(e)=>{
-        e.preventDefault()
-        SetLoading(true)
+       e.preventDefault();
+        setLoading(true);
+        setErrorMessage("");
        try {
-       await createUserWithEmailAndPassword(auth,user.email,user.password)
-       SetLoading(false)
-       setErrorMessage("")
-       navigate("/login")
-       } catch (error) {
-        SetLoading(false)
-        setErrorMessage(error.message)
-        setUser(initUser)
+      const userCredential = await createUserWithEmailAndPassword(auth, user.email, user.password);
+       const newUser = userCredential.user;
+       await setDoc(doc(db, "users", newUser.uid), {
+                email: user.email,
+                role: user.role,
+            });
+        setLoading(false);
+            navigate("/login");
+        }
+            
+       catch (error) {
+        setLoading(false);
+            setErrorMessage(error.message);
+            setUser(initUser);
        }
     }
     return (
@@ -54,6 +65,9 @@ const Signup = () => {
             {loading && <h2 className='w-full bg-blue-400 text-white rounded-sm text-sm text-center py-1'>Creating new User ...</h2>}
             {!loading && <button className='w-full bg-blue-400 h-7 text-white rounded-sm text-sm' type="submit">Register New User</button>}
             {errorMessage && <h2 className='text-center font-semibold text-red-600'>{errorMessage}</h2>}
+        </div>
+        <div>
+            <h2 className=''>Already Have an Account? <Link to="/login" className='font-semibold underline'>Login now</Link></h2>
         </div>
         </form>
         </div>

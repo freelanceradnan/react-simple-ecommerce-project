@@ -1,7 +1,16 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
+import { useAuth } from "../contexts/Auth";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+
 
 const Navbar = () => {
+  const {
+    loading,
+    currenUser,
+    role}=useAuth()
+    const isLogin=false
   return (
     <nav className="w-full flex justify-center bg-[#FFFFFF] py-2">
       <ul className="flex items-center gap-6">
@@ -22,7 +31,9 @@ const Navbar = () => {
         >
           Cart
         </NavLink>
-        <NavLink
+        
+          <>
+          <NavLink
           to="/signup"
           className={({ isActive}) =>
             isActive ? "text-red-500 border-b-2 border-blue-400" : ""
@@ -38,6 +49,9 @@ const Navbar = () => {
         >
           Login
         </NavLink>
+          </>
+        
+        <li><button onClick={()=>signOut(auth)}>Logout</button></li>
       </ul>
     </nav>
   );
