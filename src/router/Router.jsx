@@ -4,10 +4,12 @@ import Shop from "../pages/Shop";
 import Cart from "../pages/Cart";
 import Signup from "../pages/Signup";
 import Login from "../pages/Login";
+import AddProduct from "../pages/AddProduct";
 export const rootRouter=createBrowserRouter([
     {path:"/",element:<Rootlayout/>,children:[
         {path:"/",index:true,element:<Shop/>},
         {path:"/cart",index:true,element:<Cart/>},
+        {path:"/add-product",index:true,element:<AddProduct/>},
         {path:"/signup",index:true,element:<Signup/>},
         {path:"/login",index:true,element:<Login/>},
     ]}

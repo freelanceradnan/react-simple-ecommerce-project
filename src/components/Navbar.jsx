@@ -6,11 +6,9 @@ import { auth } from "../firebase";
 
 
 const Navbar = () => {
-  const {
-    loading,
-    currenUser,
-    role}=useAuth()
-    const isLogin=false
+  const {isLogin,role}=useAuth()
+  
+  
   return (
     <nav className="w-full flex justify-center bg-[#FFFFFF] py-2">
       <ul className="flex items-center gap-6">
@@ -23,6 +21,16 @@ const Navbar = () => {
         >
           Shop
         </NavLink>
+        {isLogin && role=='admin' &&(
+          <NavLink
+          to="/add-product"
+          className={({ isActive}) =>
+            isActive ? "text-red-500 border-b-2 border-blue-400" : ""
+          }
+        >
+          Add Product
+        </NavLink>
+        )}
         <NavLink
           to="/cart"
           className={({ isActive}) =>
@@ -32,7 +40,9 @@ const Navbar = () => {
           Cart
         </NavLink>
         
-          <>
+          {
+            !isLogin && 
+              <>
           <NavLink
           to="/signup"
           className={({ isActive}) =>
@@ -50,8 +60,12 @@ const Navbar = () => {
           Login
         </NavLink>
           </>
+            
+          }
         
-        <li><button onClick={()=>signOut(auth)}>Logout</button></li>
+        {
+          isLogin && <li><button onClick={()=>signOut(auth)}>Logout</button></li>
+        }
       </ul>
     </nav>
   );
