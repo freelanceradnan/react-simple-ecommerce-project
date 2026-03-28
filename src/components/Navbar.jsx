@@ -21,9 +21,10 @@ const Navbar = () => {
         >
           Shop
         </NavLink>
+        
         {isLogin && role=='admin' &&(
           <NavLink
-          to="/add-product"
+          to="/addProduct"
           className={({ isActive}) =>
             isActive ? "text-red-500 border-b-2 border-blue-400" : ""
           }
@@ -31,7 +32,8 @@ const Navbar = () => {
           Add Product
         </NavLink>
         )}
-        <NavLink
+        {isLogin && (
+          <NavLink
           to="/cart"
           className={({ isActive}) =>
             isActive ? "text-red-500 border-b-2 border-blue-400" : ""
@@ -39,6 +41,7 @@ const Navbar = () => {
         >
           Cart
         </NavLink>
+        )}
         
           {
             !isLogin && 
