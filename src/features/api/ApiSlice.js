@@ -20,12 +20,13 @@ export const apiSlice = createApi({
     getPosts: builder.query({
       async queryFn() {
         try {
-          const productRef = doc(db, "products");
+          const productRef = collection(db, "products");
           const data = await getDocs(productRef);
           const filteredData = data.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }));
+          
           return {data:filteredData,error:null}
         } catch (error) {
         return{error:"failed to fetch products from db"}
