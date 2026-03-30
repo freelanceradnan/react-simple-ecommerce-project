@@ -34,11 +34,11 @@ export const apiSlice = createApi({
       providesTags: ["products"],
     }),
     updateProduct: builder.mutation({
-      async queryFn({ id, updates }) {
+      async queryFn({ id, ...data }) {
         try {
-          const ref = doc(db, "product", id);
+          const ref = doc(db, "products", id);
           await updateDoc(ref, {
-            ...updates,
+            ...data,
             updatedAt: serverTimestamp(),
           });
           return { data: true };

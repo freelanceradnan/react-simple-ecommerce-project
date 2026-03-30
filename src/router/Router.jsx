@@ -8,6 +8,7 @@ import AddProduct from "../pages/AddProduct";
 import PrivateRoute from "../components/PrivateRoute";
 import PrivateCartRouter from "../components/PrivateCartRouter";
 import AdminProduct from "../pages/AdminProduct";
+import EditProduct from "../pages/EditProduct";
 
 export const rootRouter=createBrowserRouter([
     {path:"/",element:<Rootlayout/>,children:[
@@ -25,5 +26,6 @@ export const rootRouter=createBrowserRouter([
         {path:"/signup",index:true,element:<Signup/>},
         {path:"/login",index:true,element:<Login/>},
         {path:"/admin-product",index:true,element:<AdminProduct/>},
+        {path:"/edit-product/:id",index:true,element:<EditProduct/>},
     ]}
 ])

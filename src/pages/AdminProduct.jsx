@@ -2,6 +2,9 @@ import { collection, deleteDoc, getDocs,doc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { X,Pencil} from 'lucide-react';
+import { Navigate } from 'react-router';
+import { Link } from 'react-router';
+
 const AdminProduct = () => {
     const [product,setProduct]=useState([])
     const [category,setCategory]=useState([])
@@ -76,9 +79,9 @@ try {
                 
                 {/* Action Buttons */}
                 <td className=' p-2 text-center'>
-                    <button className="text-blue-500 hover:text-blue-700">
+                    <Link to={`/edit-product/${prod.id}`}className="text-blue-500 hover:text-blue-700">
                         <Pencil size={18} className="mx-auto" />
-                    </button>
+                    </Link>
                 </td>
                 <td className=' p-2 text-center'>
                     <button className="text-red-500 hover:text-red-700" onClick={()=>deleteProduct(prod.id)}>
