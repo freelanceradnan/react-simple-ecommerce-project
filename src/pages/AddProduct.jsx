@@ -10,7 +10,7 @@ const AddProduct = () => {
         title:"",
         price:"",
         image:"",
-        category:""
+        categoryId:""
     })
     const changeHandler=(e)=>{
      setProduct({
@@ -58,7 +58,7 @@ console.log(setProduct)
             <img src={product.image} className='h-50 w-50' />
         )}
         <label htmlFor="" className='font-semibold'>Enter Your Product Category</label>
-        <select name="category" onChange={(e) => setProduct({...product, category: e.target.value})}>
+        <select name="categoryId" onChange={(e) => setProduct({...product, categoryId: e.target.value})}>
         <option value="" defaultChecked>Select Category Must</option>
       {categories.map((categroy)=>(
        <option value={categroy.id} key={categroy.id}>{categroy.name}</option>
