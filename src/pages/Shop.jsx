@@ -8,9 +8,10 @@ import { useGetCategoriesQuery, useGetPostsQuery, useGetProductsByCategoryQuery 
 const Shop = () => {
  const [searchParams,setSearchParams]=useSearchParams()
  const activeSlug=searchParams.get('category')
+
  //get category 
  const {data:categories=[]}=useGetCategoriesQuery()
- 
+
  const activeCategory=categories.find(cat=>cat.slug===activeSlug)
 
 const activeCategoryId=activeCategory?.id
@@ -20,7 +21,7 @@ const isCategoryActive=Boolean(activeCategoryId)
 const {data:allProducts=[],isLoading:allLoading}=useGetPostsQuery(undefined,{
     skip:isCategoryActive
 })
-console.log(allProducts)
+
 const {data:categoryProducts=[],isLoading:categoryLoading}=useGetProductsByCategoryQuery(activeCategoryId,{
 skip:!isCategoryActive
 })
@@ -40,7 +41,7 @@ setSearchParams(searchParams)
         <div>
         <h2 className="text-center text-2xl font-semibold py-2">All Available Products</h2>
        {/* category--filter */}
-       <div className="flex gap-2 justify-center">
+       <div className="flex gap-2 justify-center mb-10">
         <button onClick={clearCategory} className='bg-blue-500 p-2 px-6'>All</button>
         {categories.map((category=>(
             <button key={category.id} className='bg-blue-500 p-2 px-6' onClick={()=>handler(category)}>{category.name}</button>
